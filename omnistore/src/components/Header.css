@@ -1,0 +1,42 @@
+
+.store-header {
+  background-color: #ffffff;
+  border-bottom: 1px solid #e5e7eb;
+  padding: 20px 0;
+}
+
+.header-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.store-logo {
+  font-size: 28px;
+  font-weight: 800;
+  color: #111827;
+  margin: 0;
+}
+
+.store-logo span {
+  color: #f97316;
+}
+
+.cart {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 22px;
+}
+
+.cart-count {
+  background-color: #f97316;
+  color: white;
+  font-size: 13px;
+  font-weight: bold;
+  padding: 5px 9px;
+  border-radius: 50%;
+}

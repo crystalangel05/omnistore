@@ -1,0 +1,51 @@
+
+#root {
+  min-height: 100vh;
+}
+
+.hero {
+  background: linear-gradient(135deg, #fff7ed, #ffedd5);
+  padding: 72px 24px;
+}
+
+.hero-content {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.hero-label {
+  color: #ea580c;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+.hero h2 {
+  font-size: clamp(36px, 5vw, 58px);
+  line-height: 1.1;
+  color: #111827;
+  margin: 20px 0;
+}
+
+.hero-description {
+  max-width: 500px;
+  color: #4b5563;
+  font-size: 17px;
+  line-height: 1.7;
+}
+
+.hero-button {
+  display: inline-block;
+  background-color: #f97316;
+  color: #ffffff;
+  text-decoration: none;
+  padding: 14px 24px;
+  border-radius: 8px;
+  font-weight: 600;
+  margin-top: 16px;
+  transition: background-color 0.2s ease;
+}
+
+.hero-button:hover {
+  background-color: #ea580c;
+}
