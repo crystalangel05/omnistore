@@ -1,7 +1,7 @@
 
 import "./Header.css";
 
-function Header() {
+function Header ({ cartCount }) {
   return (
     <header className="store-header">
       <div className="header-container">
@@ -9,7 +9,7 @@ function Header() {
 
         <div className="cart">
           <span className="cart-icon">🛒</span>
-          <span className="cart-count">0</span>
+          <span className="cart-count"> Cart ({cartCount})</span>
         </div>
       </div>
     </header>

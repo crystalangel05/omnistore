@@ -1,7 +1,7 @@
 
 import "./ProductCard.css";
 
-function ProductCard({ product }) {
+function ProductCard({ product, onAddToCart }) {
   return (
     <article className="product-card">
       <img
@@ -21,6 +21,12 @@ function ProductCard({ product }) {
             currency: "INR",
           })}
         </p>
+        <button
+  className="add-to-cart-btn"
+  onClick={() => onAddToCart(product)}
+>
+  Add to Cart
+</button>
       </div>
     </article>
   );

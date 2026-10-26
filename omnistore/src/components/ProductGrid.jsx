@@ -3,7 +3,11 @@ import products from "../data/products";
 import ProductCard from "./ProductCard";
 import "./ProductGrid.css";
 
-function ProductGrid() {
+ function ProductGrid ({ onAddToCart, search }){
+const filteredProducts = products.filter((product) =>
+  product.title.toLowerCase().includes(search.toLowerCase())
+);
+
   return (
     <section className="products-section">
       <div className="section-heading">
@@ -13,18 +17,23 @@ function ProductGrid() {
         </div>
 
         <p className="product-count">
-          {products.length} products
+         {filteredProducts.length} products
         </p>
       </div>
 
-      <div className="product-grid">
-        {products.map((product) => (
-          <ProductCard
-            key={product.id}
-            product={product}
-          />
-        ))}
-      </div>
+     <div className="product-grid">
+  {filteredProducts.length > 0 ? (
+    filteredProducts.map((product) => (
+      <ProductCard
+        key={product.id}
+        product={product}
+        onAddToCart={onAddToCart}
+      />
+    ))
+  ) : (
+    <p>No products found.</p>
+  )}
+</div>
     </section>
   );
 }
