@@ -3,6 +3,7 @@
   max-width: 1200px;
   margin: 0 auto;
   padding: 48px 24px;
+  color: var(--color-text);
 }
 
 .section-heading {
@@ -14,7 +15,7 @@
 }
 
 .section-label {
-  color: #f97316;
+  color: var(--color-accent);
   font-size: 12px;
   font-weight: 700;
   letter-spacing: 2px;
@@ -23,12 +24,12 @@
 
 .section-heading h2 {
   font-size: 30px;
-  color: #111827;
+  color: var(--color-heading);
   margin: 0;
 }
 
 .product-count {
-  color: #6b7280;
+  color: var(--color-text);
   font-size: 14px;
 }
 
@@ -56,6 +57,19 @@
 
   .section-heading h2 {
     font-size: 23px;
+  }
+}
+
+@media (max-width: 500px) {
+  .section-heading {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 20px;
+  }
+
+  .product-count {
+    margin: 0;
   }
 }
 

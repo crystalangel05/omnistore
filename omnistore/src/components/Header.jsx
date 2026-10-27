@@ -1,7 +1,19 @@
 
+import { useEffect, useRef, useState } from "react";
 import "./Header.css";
 
 function Header ({ cartCount }) {
+  const previousCartCount = useRef(cartCount);
+  const [animationVersion, setAnimationVersion] = useState(0);
+
+  useEffect(() => {
+    if (cartCount > previousCartCount.current) {
+      setAnimationVersion((version) => version + 1);
+    }
+
+    previousCartCount.current = cartCount;
+  }, [cartCount]);
+
   return (
     <header className="store-header">
       <div className="header-container">
@@ -9,7 +21,14 @@ function Header ({ cartCount }) {
 
         <div className="cart">
           <span className="cart-icon">🛒</span>
-          <span className="cart-count"> Cart ({cartCount})</span>
+          <span
+            key={animationVersion}
+            className="cart-count"
+            aria-live="polite"
+            aria-atomic="true"
+          >
+            Cart ({cartCount})
+          </span>
         </div>
       </div>
     </header>

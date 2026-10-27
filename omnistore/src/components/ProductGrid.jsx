@@ -1,12 +1,10 @@
-
-import products from "../data/products";
 import ProductCard from "./ProductCard";
 import "./ProductGrid.css";
 
- function ProductGrid ({ onAddToCart, search }){
-const filteredProducts = products.filter((product) =>
-  product.title.toLowerCase().includes(search.toLowerCase())
-);
+function ProductGrid({ products, onAddToCart, search }) {
+  const filteredProducts = products.filter((product) =>
+    product.title.toLowerCase().includes(search.toLowerCase())
+  );
 
   return (
     <section className="products-section">
@@ -17,23 +15,23 @@ const filteredProducts = products.filter((product) =>
         </div>
 
         <p className="product-count">
-         {filteredProducts.length} products
+          {filteredProducts.length} products
         </p>
       </div>
 
-     <div className="product-grid">
-  {filteredProducts.length > 0 ? (
-    filteredProducts.map((product) => (
-      <ProductCard
-        key={product.id}
-        product={product}
-        onAddToCart={onAddToCart}
-      />
-    ))
-  ) : (
-    <p>No products found.</p>
-  )}
-</div>
+      <div className="product-grid">
+        {filteredProducts.length > 0 ? (
+          filteredProducts.map((product) => (
+            <ProductCard
+              key={product.id}
+              product={product}
+              onAddToCart={onAddToCart}
+            />
+          ))
+        ) : (
+          <p>No products found.</p>
+        )}
+      </div>
     </section>
   );
 }
