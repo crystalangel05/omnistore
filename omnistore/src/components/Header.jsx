@@ -1,8 +1,10 @@
-
 import { useEffect, useRef, useState } from "react";
+import { useCart } from "../context/CartContext.jsx";
 import "./Header.css";
 
-function Header ({ cartCount }) {
+function Header() {
+  const { cartCount } = useCart();
+
   const previousCartCount = useRef(cartCount);
   const [animationVersion, setAnimationVersion] = useState(0);
 
@@ -17,7 +19,9 @@ function Header ({ cartCount }) {
   return (
     <header className="store-header">
       <div className="header-container">
-        <h1 className="store-logo">OmniStore<span>.</span></h1>
+        <h1 className="store-logo">
+          OmniStore<span>.</span>
+        </h1>
 
         <div className="cart">
           <span className="cart-icon">🛒</span>

@@ -1,12 +1,15 @@
+
 import { useState, useEffect } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Link } from "react-router-dom";
 
 import Header from "./components/Header.jsx";
 import ProductGrid from "./components/ProductGrid";
 import ProductDetail from "./components/ProductDetail";
 import Cart from "./components/Cart";
+import { useCart } from "./context/CartContext.jsx";
 
 import "./App.css";
+import Checkout from "./pages/Checkout.jsx";
 
 function HomePage({
   products,
@@ -14,13 +17,8 @@ function HomePage({
   error,
   search,
   onSearchChange,
-  onAddToCart,
-  cart,
-  totalPrice,
-  onIncrease,
-  onDecrease,
-  onRemove,
 }) {
+  const { addToCart } = useCart();
   return (
     <>
       <section className="hero">
@@ -55,42 +53,31 @@ function HomePage({
         </div>
 
         {loading ? (
-          <p className="status-message">
-            Loading products...
-          </p>
+          <p className="status-message">Loading products...</p>
         ) : error ? (
-          <p className="status-message error-message">
-            {error}
-          </p>
+          <p className="status-message error-message">{error}</p>
         ) : (
           <ProductGrid
             products={products}
-            onAddToCart={onAddToCart}
+            onAddToCart={addToCart}
             search={search}
           />
         )}
 
-        <Cart
-          cart={cart}
-          totalPrice={totalPrice}
-          onIncrease={onIncrease}
-          onDecrease={onDecrease}
-          onRemove={onRemove}
-        />
+        <Cart />
       </div>
     </>
   );
 }
 
 function App() {
+  const { cartCount, addToCart } = useCart();
+
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-
-  const [cart, setCart] = useState([]);
   const [search, setSearch] = useState("");
 
-  // Fetch products from DummyJSON
   useEffect(() => {
     async function fetchProducts() {
       try {
@@ -119,69 +106,9 @@ function App() {
     fetchProducts();
   }, []);
 
-  // Add a product to the cart
-  const handleAddToCart = (product) => {
-    setCart((prevCart) => {
-      const existingProduct = prevCart.find(
-        (item) => item.id === product.id
-      );
-
-      if (existingProduct) {
-        return prevCart.map((item) =>
-          item.id === product.id
-            ? { ...item, qty: item.qty + 1 }
-            : item
-        );
-      }
-
-      return [...prevCart, { ...product, qty: 1 }];
-    });
-  };
-
-  // Increase quantity
-  const handleIncrease = (id) => {
-    setCart((prevCart) =>
-      prevCart.map((item) =>
-        item.id === id
-          ? { ...item, qty: item.qty + 1 }
-          : item
-      )
-    );
-  };
-
-  // Decrease quantity
-  const handleDecrease = (id) => {
-    setCart((prevCart) =>
-      prevCart
-        .map((item) =>
-          item.id === id
-            ? { ...item, qty: item.qty - 1 }
-            : item
-        )
-        .filter((item) => item.qty > 0)
-    );
-  };
-
-  // Remove a product
-  const handleRemove = (id) => {
-    setCart((prevCart) =>
-      prevCart.filter((item) => item.id !== id)
-    );
-  };
-
-  const totalPrice = cart.reduce(
-    (total, item) => total + item.price * item.qty,
-    0
-  );
-
-  const cartCount = cart.reduce(
-    (total, item) => total + item.qty,
-    0
-  );
-
   return (
     <>
-      <Header cartCount={cartCount} />
+      <Header />
 
       <Routes>
         <Route
@@ -193,30 +120,22 @@ function App() {
               error={error}
               search={search}
               onSearchChange={setSearch}
-              onAddToCart={handleAddToCart}
-              cart={cart}
-              totalPrice={totalPrice}
-              onIncrease={handleIncrease}
-              onDecrease={handleDecrease}
-              onRemove={handleRemove}
             />
           }
         />
 
         <Route
           path="/product/:id"
-          element={
-            <ProductDetail onAddToCart={handleAddToCart} />
-          }
+          element={<ProductDetail onAddToCart={addToCart} />}
         />
-
+<Route path="/checkout" element={<Checkout />} />
         <Route
           path="*"
           element={
             <main className="not-found">
               <h1>404 - Page Not Found</h1>
               <p>Sorry, we couldn't find that page.</p>
-              <a href="/">Back to Store</a>
+              <Link to="/">Back to Store</Link>
             </main>
           }
         />
@@ -226,3 +145,4 @@ function App() {
 }
 
 export default App;
+
